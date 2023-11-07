@@ -53,6 +53,11 @@ html {
     border-bottom: 0;
   }
   
+  input:checked+p {
+    text-decoration: 2px solid line-through;
+    text-decoration-color: #A683E3;
+  }
+
   input[type="checkbox"] {
     margin: 20px;
   }
@@ -105,4 +110,3 @@ html {
     height: 25px;
     margin-top: 10px;
   }
-  

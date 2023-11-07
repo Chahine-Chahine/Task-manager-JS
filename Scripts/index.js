@@ -12,6 +12,7 @@ function addTask(event) {
     let task_text = button_form.querySelector("input[type='text']").value;
     // Prevent the form from submitting
     event.preventDefault();
+    if (task_text !== "") {
     // Creating a div
     let new_item = document.createElement("div"); 
     // Adding class "item"
@@ -30,7 +31,11 @@ function addTask(event) {
     deleteButton.addEventListener("click", function() {
         // Remove the child that is appended
         task_container.removeChild(new_item);
+    
+    
+
     });
+}else alert("You did not provide any task to add")
 }
 
 
