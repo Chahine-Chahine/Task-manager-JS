@@ -6,7 +6,7 @@ let task_container = document.getElementById("task_container");
 // Add a click event listener to the button
 add_button.addEventListener("click", addTask);
 
-// tasks array
+// Tasks array
 let tasks = [];
 
 function addTask(event) {
@@ -15,6 +15,7 @@ function addTask(event) {
 
   // Prevent the form from submitting
   event.preventDefault();
+
   if (task_text !== "") {
     // Creating a div
     let new_item = document.createElement("div");
@@ -22,21 +23,25 @@ function addTask(event) {
     // Adding class "item"
     new_item.classList.add("item");
 
-    // adding HTML code to the innerHTML of new_item
-    new_item.innerHTML += ` <input type="checkbox"><p>${task_text}</p><img class="edit_task" src="./Assets/Images/edit_icon.svg" alt="edit">
-                                                                 <img class="delete-task" src="./Assets/Images/trash-icon.svg" alt="Delete">`;
+    // Adding HTML code to the innerHTML of new_item
+    new_item.innerHTML += `
+      <input type="checkbox">
+      <p>${task_text}</p>
+      <img class="edit_task" src="./Assets/Images/edit_icon.svg" alt="edit">
+      <img class="delete-task" src="./Assets/Images/trash-icon.svg" alt="Delete">
+    `;
 
     // Select the checkbox within the new_item element
-    let checkbox = new_item.querySelector("input[type='checkbox");
+    let checkbox = new_item.querySelector("input[type='checkbox']");
 
     // Store the new item in the tasks array
     tasks.push(new_item);
 
-    // Select the image of trash can
-    let deleteButton = new_item.querySelector(".delete-task");
+    // Select the image of the trash can
+    let delete_button = new_item.querySelector(".delete-task");
 
-    // Delete function on eventListener click
-    deleteButton.addEventListener("click", function () {
+    // Delete function on event listener click
+    delete_button.addEventListener("click", function () {
       // Remove the child that is appended
       task_container.removeChild(new_item);
       // Remove the task from the tasks array
@@ -51,10 +56,10 @@ function addTask(event) {
       // Select the paragraph to edit
       let paragraph = new_item.querySelector("p");
       // Get new value
-      let newText = prompt("Edit the task:", paragraph.textContent);
-      if (newText !== null) {
+      let new_text = prompt("Edit the task:", paragraph.textContent);
+      if (new_text !== null) {
         // Assign the new value
-        paragraph.textContent = newText;
+        paragraph.textContent = new_text;
       }
     });
 
@@ -76,21 +81,21 @@ function addTask(event) {
   } else {
     alert("You did not provide any task to add");
   }
-}
+}  // End of addTask function
 
 // Function to filter tasks based on the checkboxes
 function filterTasks() {
-  let checkboxStatus = document.querySelector(".completed").classList.contains("selected") ? true : false;
+  let checkbox_status = document.querySelector(".completed").classList.contains("selected");
 
   tasks.forEach((task) => {
     let checkbox = task.querySelector("input[type='checkbox']");
     let isCompleted = checkbox.checked;
-    if ((isCompleted && checkboxStatus) || (!isCompleted && !checkboxStatus)) {
+    if ((isCompleted === checkbox_status)){
       task.style.display = "flex";
     } else {
       task.style.display = "none";
     }
-  });
+  }); // End of filterTasks function  
 }
 
 // Add click event listeners to the filter options (All, Completed, Incomplete)
