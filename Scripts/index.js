@@ -5,6 +5,11 @@ let button_form = document.querySelector("#button_form");
 // Add a click event listener to the button
 add_button.addEventListener("click", addTask);
 
+// Arrays to store checked and unchecked tasks
+let tasks = [];
+let checkedTasks = [];
+let uncheckedTasks = [];
+
 function addTask(event) {
   // Select the placeholder value
   let task_text = button_form.querySelector("input[type='text']").value;
@@ -49,5 +54,9 @@ function addTask(event) {
       // Assign the new value
       paragraph.textContent = newText;
     });
+
+    
+
+
   } else alert("You did not provide any task to add");
 }

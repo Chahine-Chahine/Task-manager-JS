@@ -96,3 +96,10 @@ body {
     height: 25px;
     margin: 10px 2px 0px 6px;
   }
+
+.all , .completed , .incomplete{
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 20px;
+  cursor: pointer;
+}
