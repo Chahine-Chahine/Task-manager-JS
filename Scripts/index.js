@@ -10,8 +10,9 @@ add_button.addEventListener("click", addTask);
 let tasks = [];
 
 function addTask(event) {
-  // Select the placeholder value
+  // Select the placeholder value and priority
   let task_text = button_form.querySelector("input[type='text']").value;
+  let task_priority = parseInt(prompt("Enter task priority (1-5):"));
 
   // Prevent the form from submitting
   event.preventDefault();
@@ -27,6 +28,7 @@ function addTask(event) {
     new_item.innerHTML += `
       <input type="checkbox">
       <p>${task_text}</p>
+      <span class="priority">${task_priority}</span>
       <img class="edit_task" src="./Assets/Images/edit_icon.svg" alt="edit">
       <img class="delete-task" src="./Assets/Images/trash-icon.svg" alt="Delete">
     `;
@@ -36,32 +38,6 @@ function addTask(event) {
 
     // Store the new item in the tasks array
     tasks.push(new_item);
-
-    // Select the image of the trash can
-    let delete_button = new_item.querySelector(".delete-task");
-
-    // Delete function on event listener click
-    delete_button.addEventListener("click", function () {
-      // Remove the child that is appended
-      task_container.removeChild(new_item);
-      // Remove the task from the tasks array
-      tasks.splice(tasks.indexOf(new_item), 1);
-    });
-
-    // Select the edit icon
-    let edit_task = new_item.querySelector(".edit_task");
-
-    // Function for editing
-    edit_task.addEventListener("click", function () {
-      // Select the paragraph to edit
-      let paragraph = new_item.querySelector("p");
-      // Get new value
-      let new_text = prompt("Edit the task:", paragraph.textContent);
-      if (new_text !== null) {
-        // Assign the new value
-        paragraph.textContent = new_text;
-      }
-    });
 
     // Add the new_item to the task container
     task_container.appendChild(new_item);
@@ -75,12 +51,25 @@ function addTask(event) {
     // Initialize the checkbox's checked status
     checkbox.checked = false;
 
+    // Update the task order when sorting by priority
+    sortTasksByPriority();
+
   } else {
     alert("You did not provide any task to add");
   }
-}  // End of addTask function
+}
 
+function sortTasksByPriority() {
+  tasks.sort((task1, task2) => {
+    const priority1 = parseInt(task1.querySelector(".priority").textContent);
+    const priority2 = parseInt(task2.querySelector(".priority").textContent);
+    return priority1 - priority2;
+  });
 
+  // Update the task order in the task container
+  task_container.innerHTML = "";
+  tasks.forEach((task) => task_container.appendChild(task));
+}
 
 function allTasks() {
   tasks.forEach((task) => {
@@ -104,8 +93,6 @@ function filterTasks() {
   });
 }
 
-
-
 // Add click event listeners to the filter options (All, Completed, Incomplete)
 document.querySelectorAll(".heading h2").forEach((filter) => {
   filter.addEventListener("click", function () {
@@ -119,6 +106,4 @@ document.querySelectorAll(".heading h2").forEach((filter) => {
       filterTasks(); // Call filterTasks() for other filters
     }
   });
-});
-
-
+})
