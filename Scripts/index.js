@@ -1,9 +1,9 @@
-// Select the button and button form
+//  Global variables
 let add_button = document.getElementById("add_button");
 let button_form = document.querySelector("#button_form");
 let task_container = document.getElementById("task_container");
 
-// Add a click event listener to the button
+// Add a click event listener to the add button
 add_button.addEventListener("click", addTask);
 
 // Tasks array
@@ -72,9 +72,6 @@ function addTask(event) {
     // Check the checkbox and filter the displayed tasks
     checkbox.addEventListener("change", filterTasks);
 
-    // Initialize the checkbox's checked status
-    checkbox.checked = false;
-
   } else {
     alert("You did not provide any task to add");
   }
@@ -106,19 +103,26 @@ function filterTasks() {
 
 
 
-// Add click event listeners to the filter options (All, Completed, Incomplete)
-document.querySelectorAll(".heading h2").forEach((filter) => {
-  filter.addEventListener("click", function () {
-    document.querySelectorAll(".heading h2").forEach((h2) => {
-      h2.classList.remove("selected");
-    });
-    this.classList.add("selected");
-    if (this.textContent === "All") {
-      allTasks(); // Call allTasks() when "All" is selected
-    } else {
-      filterTasks(); // Call filterTasks() for other filters
-    }
-  });
+// Select all filter options
+const filters = document.querySelectorAll(".heading h2");
+
+// Function to handle filter click
+function handleFilterClick() {
+  // Remove 'selected' class from all filters
+  filters.forEach((filter) => filter.classList.remove("selected"));
+  
+  // Add 'selected' class to the clicked filter
+  this.classList.add("selected");
+
+  // Determine action based on the selected filter
+  if (this.textContent === "All") {
+    allTasks();
+  } else {
+    filterTasks();
+  }
+}
+
+// Add click event listeners to each filter
+filters.forEach((filter) => {
+  filter.addEventListener("click", handleFilterClick);
 });
-
-
