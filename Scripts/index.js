@@ -70,33 +70,41 @@ function addTask(event) {
     button_form.querySelector("input[type='text']").value = "";
 
     // Check the checkbox and filter the displayed tasks
-    checkbox.addEventListener("change", function () {
-      filterTasks();
-    });
+    checkbox.addEventListener("change", filterTasks);
 
     // Initialize the checkbox's checked status
     checkbox.checked = false;
 
-    filterTasks();
   } else {
     alert("You did not provide any task to add");
   }
 }  // End of addTask function
 
+
+
+function allTasks() {
+  tasks.forEach((task) => {
+    task.style.display = "flex";
+  });
+}
+
 // Function to filter tasks based on the checkboxes
 function filterTasks() {
-  let checkbox_status = document.querySelector(".completed").classList.contains("selected");
+  let selectedFilter = document.querySelector(".selected").textContent;
 
   tasks.forEach((task) => {
     let checkbox = task.querySelector("input[type='checkbox']");
     let isCompleted = checkbox.checked;
-    if ((isCompleted === checkbox_status)){
+
+    if (selectedFilter === "All" || (selectedFilter === "Completed" && isCompleted) || (selectedFilter === "Incomplete" && !isCompleted)) {
       task.style.display = "flex";
     } else {
       task.style.display = "none";
     }
-  }); // End of filterTasks function  
+  });
 }
+
+
 
 // Add click event listeners to the filter options (All, Completed, Incomplete)
 document.querySelectorAll(".heading h2").forEach((filter) => {
@@ -105,6 +113,12 @@ document.querySelectorAll(".heading h2").forEach((filter) => {
       h2.classList.remove("selected");
     });
     this.classList.add("selected");
-    filterTasks();
+    if (this.textContent === "All") {
+      allTasks(); // Call allTasks() when "All" is selected
+    } else {
+      filterTasks(); // Call filterTasks() for other filters
+    }
   });
 });
+
+
