@@ -93,7 +93,7 @@ function filterTasks() {
     let checkbox = task.querySelector("input[type='checkbox']");
     let isCompleted = checkbox.checked;
 
-    if (selectedFilter === "All" || (selectedFilter === "Completed" && isCompleted) || (selectedFilter === "Incomplete" && !isCompleted)) {
+    if (selectedFilter === "All" || (selectedFilter === "Completed" && isCompleted) || (selectedFilter === "active" && !isCompleted)) {
       task.style.display = "flex";
     } else {
       task.style.display = "none";
