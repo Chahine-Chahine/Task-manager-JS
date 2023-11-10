@@ -36,6 +36,8 @@ function addTask(event) {
 
     // Store the new item in the tasks array
     tasks.push(new_item);
+    // Add the new_item to the task container
+    task_container.appendChild(new_item);
 
     // Select the image of the trash can
     let delete_button = new_item.querySelector(".delete-task");
@@ -63,8 +65,6 @@ function addTask(event) {
       }
     });
 
-    // Add the new_item to the task container
-    task_container.appendChild(new_item);
 
     // Clear the input field for the next task
     button_form.querySelector("input[type='text']").value = "";
